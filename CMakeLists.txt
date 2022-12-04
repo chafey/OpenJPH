@@ -29,6 +29,8 @@ option(OJPH_DISABLE_INTEL_SIMD "Disables the use of SIMD instructions and associ
 option(BUILD_SHARED_LIBS "Shared Libraries" ON)
 option(OJPH_ENABLE_TIFF_SUPPORT "Enables input and output support for TIFF files" ON)
 option(OJPH_BUILD_TEST "Enables building test code" OFF)
+option(OJPH_BUILD_UNIT_TEST "Enables building unit test code" OFF)
+
 
 if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release")
@@ -255,3 +257,13 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND OJPH_BUILD_TEST)
     add_subdirectory(tests)
 endif()
 
+
+################################################################################################
+# Testing (OJPH_BUILD_UNIT_TEST)
+################################################################################################
+
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND OJPH_BUILD_UNIT_TEST)
+    include(CTest)
+    add_subdirectory(extern/Catch2)
+    add_subdirectory(tests/unit)
+endif()
